@@ -34,7 +34,7 @@ A comprehensive, production-ready tool that combines three essential APK modific
 After pushing this repository to GitHub, install the command on another machine:
 
 ```bash
-uv tool install git+https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git
+uv tool install git+https://github.com/premlingayat/apk-patcher.git
 apk-patcher --help
 ```
 
