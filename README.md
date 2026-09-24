@@ -61,7 +61,7 @@ pip install -r requirements.txt
 
 ```bash
 # Make executable
-chmod +x apk_patcher_advanced.py
+chmod +x apk_patcher.py
 
 # Add to PATH (optional)
 export PATH=$PATH:/path/to/unified-apk-patcher
@@ -75,13 +75,13 @@ export PATH=$PATH:/path/to/unified-apk-patcher
 apk-patcher input.apk output.apk
 
 # Or run directly from a clone
-python apk_patcher_advanced.py input.apk output.apk
+python apk_patcher.py input.apk output.apk
 ```
 
 ### Using PKCS#12 Keystore
 
 ```bash
-python apk_patcher_advanced.py input.apk output.apk \
+python apk_patcher.py input.apk output.apk \
   --keystore release.p12 \
   --keystore-password yourpassword
 ```
@@ -89,7 +89,7 @@ python apk_patcher_advanced.py input.apk output.apk \
 ### Using PEM Key & Certificate
 
 ```bash
-python apk_patcher_advanced.py input.apk output.apk \
+python apk_patcher.py input.apk output.apk \
   --key private_key.pem \
   --cert certificate.crt
 ```
@@ -97,7 +97,7 @@ python apk_patcher_advanced.py input.apk output.apk \
 ### Verbose Output
 
 ```bash
-python apk_patcher_advanced.py input.apk output.apk -v
+python apk_patcher.py input.apk output.apk -v
 ```
 
 ## Detailed Usage Guide
@@ -128,7 +128,7 @@ The tool performs the following operations automatically:
 
 #### Option A: Auto-Generated Debug Key (Default)
 ```bash
-python apk_patcher_advanced.py input.apk output.apk
+python apk_patcher.py input.apk output.apk
 ```
 - Generates throwaway debug key on-the-fly
 - No key management required
@@ -137,24 +137,24 @@ python apk_patcher_advanced.py input.apk output.apk
 #### Option B: Reusable Debug Key
 ```bash
 # First run - save debug key
-python apk_patcher_advanced.py input.apk output.apk \
+python apk_patcher.py input.apk output.apk \
   --save-debug-key debug
 
 # Subsequent runs - reuse saved key
-python apk_patcher_advanced.py another.apk output2.apk \
+python apk_patcher.py another.apk output2.apk \
   --key debug.pem --cert debug.crt
 ```
 
 #### Option C: Production Release Key (PKCS#12)
 ```bash
-python apk_patcher_advanced.py input.apk output.apk \
+python apk_patcher.py input.apk output.apk \
   --keystore release.p12 \
   --keystore-password "${KEYSTORE_PASSWORD}"
 ```
 
 #### Option D: Production Release Key (PEM)
 ```bash
-python apk_patcher_advanced.py input.apk output.apk \
+python apk_patcher.py input.apk output.apk \
   --key release_private.pem \
   --cert release_certificate.crt
 ```
@@ -163,7 +163,7 @@ python apk_patcher_advanced.py input.apk output.apk \
 
 #### Generate PEM Key & Certificate
 ```bash
-python apk_patcher_advanced.py generate-key \
+python apk_patcher.py generate-key \
   release_private.pem release_certificate.crt \
   --common-name "My Company" \
   --key-size 2048
@@ -274,7 +274,7 @@ rm temp.apk temp2.apk
 ### After (Unified - Single command)
 
 ```bash
-python apk_patcher_advanced.py app.apk app-final.apk
+python apk_patcher.py app.apk app-final.apk
 ```
 
 ## Performance
@@ -304,7 +304,7 @@ This tool integrates work from:
 - `patch-netsec-conf`: Original by @adityatelange
 - `sign-apk-py`: Original by @adityatelange
 
-1. Test with verbose mode: `python apk_patcher_advanced.py input.apk output.apk -v`
+1. Test with verbose mode: `python apk_patcher.py input.apk output.apk -v`
 
 **Individual tools**: If you need specific functionality, use the original tools:
    - `pip install git+https://github.com/adityatelange/patch-libflutter-tls`

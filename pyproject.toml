@@ -3,7 +3,7 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "unified-apk-patcher"
+name = "apk-patcher"
 version = "0.1.0"
 description = "Patch Flutter TLS and Android network security configuration, then sign an APK."
 readme = "README.md"
@@ -16,7 +16,7 @@ dependencies = [
 ]
 
 [project.scripts]
-apk-patcher = "apk_patcher_advanced:main"
+apk-patcher = "apk_patcher:main"
 
 [tool.setuptools]
-py-modules = ["apk_patcher_advanced"]
+py-modules = ["apk_patcher"]
