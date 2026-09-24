@@ -322,4 +322,4 @@ This tool integrates work from:
 
 **Created**: 2024
 **Status**: Active
-**Maintainer**: Combined from [Aditya Telange]'s(https://google.com) original tools
+**Maintainer**: Combined from [Aditya Telange's](https://github.com/adityatelange/) original tools
