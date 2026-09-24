@@ -196,38 +196,7 @@ optional arguments:
   -v, --verbose         Enable verbose output
   -h, --help            Show help message
 ```
-
-### Python API
-
-```python
-from apk_patcher_advanced import UnifiedAPKPatcher
-
-# Create patcher instance
-patcher = UnifiedAPKPatcher("input.apk", "output.apk", verbose=True)
-
-# Process APK
-success = patcher.process(
-    keystore="release.p12",
-    keystore_password="mypassword"
-)
-
-if success:
-    print("✅ Patching complete!")
-else:
-    print("❌ Patching failed!")
-```
-
-## Publishing Safely
-
-Do not commit APKs, private keys, certificates, or keystores. The included
-`.gitignore` excludes common APK and signing-key extensions. Before pushing,
-inspect the files that will be published:
-
-```bash
-git status
-git add .
-git diff --cached --stat
-```
+``
 
 ## Output
 
@@ -255,113 +224,6 @@ Output: /path/to/output.apk
 ============================================================
 Output APK: /path/to/output.apk
 Size: 45.23 MB
-```
-
-### Error Handling
-
-The tool provides clear error messages for common issues:
-
-```
-❌ ERROR: Input APK not found: /path/to/nonexistent.apk
-```
-
-## Advanced Features
-
-### Batch Processing
-
-Process multiple APKs in sequence:
-
-```bash
-#!/bin/bash
-
-for apk in *.apk; do
-  output="${apk%.apk}_patched.apk"
-  echo "Processing: $apk -> $output"
-  python apk_patcher_advanced.py "$apk" "$output" -v
-done
-```
-
-### CI/CD Integration
-
-#### GitHub Actions Example
-
-```yaml
-name: Patch APKs
-
-on: [push]
-
-jobs:
-  patch:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.11'
-      
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-      
-      - name: Patch and sign APK
-        run: |
-          python apk_patcher_advanced.py \
-            build/app.apk \
-            build/app-patched.apk \
-            --keystore ${{ secrets.KEYSTORE_PATH }} \
-            --keystore-password ${{ secrets.KEYSTORE_PASSWORD }}
-      
-      - name: Upload artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: patched-apk
-          path: build/app-patched.apk
-```
-
-#### Jenkins Pipeline Example
-
-```groovy
-pipeline {
-    agent any
-    
-    stages {
-        stage('Patch APK') {
-            steps {
-                sh '''
-                    python apk_patcher_advanced.py \
-                        ${WORKSPACE}/app.apk \
-                        ${WORKSPACE}/app-patched.apk \
-                        --keystore ${KEYSTORE} \
-                        --keystore-password ${KEYSTORE_PASSWORD} \
-                        -v
-                '''
-            }
-        }
-    }
-}
-```
-
-## Troubleshooting
-
-### Issue: "sign-apk not found"
-
-**Solution**: The tool will attempt to install it automatically. If that fails:
-
-```bash
-pip install git+https://github.com/adityatelange/sign-apk-py
-```
-
-### Issue: "libflutter.so files not found"
-
-**Possible causes**:
-- APK doesn't contain Flutter libraries (e.g., Flutter web app)
-- Different architecture than expected
-
-**Solution**: Use verbose mode to debug:
-
-```bash
-python apk_patcher_advanced.py input.apk output.apk -v
 ```
 
 ### Issue: "Network security config not found"
@@ -403,7 +265,7 @@ patch-netsec-conf temp.apk
 mv temp_nons.apk temp2.apk
 
 # 3. Sign APK
-sign-apk sign temp2.apk app-final.apk --key release.pem --cert release.crt
+sign-apk sign temp2.apk app-final.apk
 
 # 4. Cleanup
 rm temp.apk temp2.apk
@@ -412,8 +274,7 @@ rm temp.apk temp2.apk
 ### After (Unified - Single command)
 
 ```bash
-python apk_patcher_advanced.py app.apk app-final.apk \
-  --key release.pem --cert release.crt
+python apk_patcher_advanced.py app.apk app-final.apk
 ```
 
 ## Performance
@@ -443,52 +304,12 @@ This tool integrates work from:
 - `patch-netsec-conf`: Original by @adityatelange
 - `sign-apk-py`: Original by @adityatelange
 
-See individual project licenses for details.
-
-## Contributing
-
-Found a bug? Have a feature request?
-
 1. Test with verbose mode: `python apk_patcher_advanced.py input.apk output.apk -v`
-2. Share the error message
-3. Include APK details (size, target SDK, architecture)
 
-## Support
-
-### Getting Help
-
-1. **Check troubleshooting section**: Most common issues are documented
-2. **Verbose mode**: Run with `-v` for detailed output
-3. **Individual tools**: If you need specific functionality, use the original tools:
+**Individual tools**: If you need specific functionality, use the original tools:
    - `pip install git+https://github.com/adityatelange/patch-libflutter-tls`
    - `pip install git+https://github.com/adityatelange/patch-netsec-conf`
    - `pip install git+https://github.com/adityatelange/sign-apk-py`
-
-## Changelog
-
-### Version 1.0.0
-- ✨ Initial release
-- 🔧 Full integration of three tools
-- 📦 Automatic dependency management
-- 🔐 Multiple signing key support
-- 📝 Comprehensive documentation
-
-## FAQ
-
-**Q: Can I use this on any APK?**
-A: Yes, but Flutter patching only affects Flutter apps. Network security patching works on all APKs.
-
-**Q: Will the patched APK work on Google Play?**
-A: No. Google Play requires original signatures. Patched APKs only work for testing/analysis on real devices or emulators.
-
-**Q: Does this require root?**
-A: No. But some features (like traffic interception) may require rooted device or proxy configuration.
-
-**Q: Can I undo the patches?**
-A: No. Always keep the original APK. Patches are permanent to the APK file.
-
-**Q: Is this legal?**
-A: For authorized testing and analysis of your own apps, yes. Always ensure you have permission.
 
 ## Resources
 
@@ -501,4 +322,4 @@ A: For authorized testing and analysis of your own apps, yes. Always ensure you 
 
 **Created**: 2024
 **Status**: Active
-**Maintainer**: Combined from Aditya Telange's original tools
+**Maintainer**: Combined from [Aditya Telange]'s(https://google.com) original tools
