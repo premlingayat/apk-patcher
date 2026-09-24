@@ -1,0 +1,6 @@
+# Runtime dependencies for direct script usage.
+# For a global command, prefer: uv tool install git+<your-repository-url>
+cryptography>=41.0.0
+patch-flutter-tls @ git+https://github.com/adityatelange/patch-libflutter-tls
+patch-netsec-conf @ git+https://github.com/adityatelange/patch-netsec-conf
+sign-apk-py @ git+https://github.com/adityatelange/sign-apk-py

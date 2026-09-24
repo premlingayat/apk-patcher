@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+*.apk
+*.idsig
+*.pem
+*.p12
+*.pfx
+*.key
+*.crt
+*.csr
+.venv/
+dist/
+build/
+*.egg-info/

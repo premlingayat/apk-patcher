@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "unified-apk-patcher"
+version = "0.1.0"
+description = "Patch Flutter TLS and Android network security configuration, then sign an APK."
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "cryptography>=41.0.0",
+    "patch-flutter-tls @ git+https://github.com/adityatelange/patch-libflutter-tls",
+    "patch-netsec-conf @ git+https://github.com/adityatelange/patch-netsec-conf",
+    "sign-apk-py @ git+https://github.com/adityatelange/sign-apk-py",
+]
+
+[project.scripts]
+apk-patcher = "apk_patcher_advanced:main"
+
+[tool.setuptools]
+py-modules = ["apk_patcher_advanced"]
