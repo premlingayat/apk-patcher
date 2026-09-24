@@ -320,6 +320,4 @@ This tool integrates work from:
 
 ---
 
-**Created**: 2024
-**Status**: Active
-**Maintainer**: Combined from [Aditya Telange's](https://github.com/adityatelange/) original tools
+Combined from [Aditya Telange's](https://github.com/adityatelange/) original tools
