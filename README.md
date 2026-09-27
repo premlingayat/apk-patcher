@@ -2,9 +2,9 @@
 
 A comprehensive, production-ready tool that combines three essential APK modification tools into a single, seamless workflow:
 
-1. **Flutter TLS Patching** (`patch-libflutter-tls`) - Disables Flutter's TLS certificate verification
-2. **Network Security Config Patching** (`patch-netsec-conf`) - Allows user/system certificates and cleartext traffic
-3. **APK Signing** (`sign-apk-py`) - Signs APK with v2, v3, and v4 signature schemes
+1. **Flutter TLS Patching** ([`patch-libflutter-tls`](https://github.com/adityatelange/patch-libflutter-tls)) - Disables Flutter's TLS certificate verification
+2. **Network Security Config Patching** ([`patch-netsec-conf`](https://github.com/adityatelange/patch-netsec-conf)) - Allows user/system certificates and cleartext traffic
+3. **APK Signing** ([`sign-apk-py`](https://github.com/adityatelange/sign-apk-py)) - Signs APK with v2, v3, and v4 signature schemes
 
 ✨ **One-Command Processing**: Execute all three operations in sequence with a single command
 
@@ -253,17 +253,10 @@ openssl pkcs12 -in release.p12 -passin pass:yourpassword -noout
 
 ## License & Attribution
 
-This tool integrates work from:
+**Individual tools**: If you need specific functionality, use the original tools:
 - [`patch-libflutter-tls`](https://github.com/adityatelange/patch-libflutter-tls)
 - [`patch-netsec-conf`](https://github.com/adityatelange/patch-netsec-conf)
 - [`sign-apk-py`](https://github.com/adityatelange/sign-apk-py)
-
-1. Test with verbose mode: `python apk_patcher.py input.apk output.apk -v`
-
-**Individual tools**: If you need specific functionality, use the original tools:
-   - `pip install git+https://github.com/adityatelange/patch-libflutter-tls`
-   - `pip install git+https://github.com/adityatelange/patch-netsec-conf`
-   - `pip install git+https://github.com/adityatelange/sign-apk-py`
 
 ## Resources
 
