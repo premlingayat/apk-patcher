@@ -34,6 +34,8 @@ environment. Internet access is required when installing or upgrading.
 ### Install with pip
 
 ```bash
+git clone https://github.com/premlingayat/apk-patcher.git
+cd apk-patcher
 pip install -r requirements.txt
 ```
 
