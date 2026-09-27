@@ -6,8 +6,6 @@ A comprehensive, production-ready tool that combines three essential APK modific
 2. **Network Security Config Patching** (`patch-netsec-conf`) - Allows user/system certificates and cleartext traffic
 3. **APK Signing** (`sign-apk-py`) - Signs APK with v2, v3, and v4 signature schemes
 
-## Features
-
 ✨ **One-Command Processing**: Execute all three operations in sequence with a single command
 
 🔒 **Multiple Signing Methods**:
@@ -15,23 +13,9 @@ A comprehensive, production-ready tool that combines three essential APK modific
 - PKCS#12 keystores (.p12/.pfx)
 - PEM key + certificate pairs
 
-📦 **Non-Destructive**: Creates intermediate patched copies, preserves original
-
-🔍 **Comprehensive Logging**: Verbose mode shows detailed information about each step
-
-⚡ **Automatic Installation**: Installs required dependencies if not available
-
-## Prerequisites
-
-- Python 3.9+
-- `pip` (Python package manager)
-- Optional: `sign-apk-py` for signing (auto-installed if needed)
-
 ## Installation
 
-### Install from GitHub with uv
-
-After pushing this repository to GitHub, install the command on another machine:
+### Install with uv
 
 ```bash
 uv tool install git+https://github.com/premlingayat/apk-patcher.git
@@ -41,35 +25,31 @@ apk-patcher --help
 To update an existing installation:
 
 ```bash
-uv tool upgrade unified-apk-patcher
+uv tool upgrade apk-patcher
 ```
 
 `uv` installs this project and its three upstream dependencies into an isolated
 environment. Internet access is required when installing or upgrading.
 
-### Option 1: Direct Usage (Recommended)
+### Install with pip
 
 ```bash
-# Clone or download the files
-cd /path/to/unified-apk-patcher
-
-# Install required dependencies for direct script usage
 pip install -r requirements.txt
 ```
 
-### Option 2: As a Python Module
+### Install as a Python Module
 
 ```bash
 # Make executable
+git clone https://github.com/premlingayat/apk-patcher.git
+cd apk-patcher
 chmod +x apk_patcher.py
 
 # Add to PATH (optional)
 export PATH=$PATH:/path/to/unified-apk-patcher
 ```
 
-## Quick Start
-
-### Basic Usage (Default Debug Key)
+## Basic Usage (Default Debug Key)
 
 ```bash
 apk-patcher input.apk output.apk
@@ -123,6 +103,50 @@ The tool performs the following operations automatically:
 - Signs the APK with the schemes supported by `sign-apk-py`
 - Uses provided keystore or generates debug key
 - Verifies the result with `apksigner` when it is installed
+
+### Command-Line Arguments
+
+```
+positional arguments:
+  input_apk             Input APK file path
+  output_apk            Output patched and signed APK file path
+
+optional arguments:
+  --keystore PATH       PKCS#12 keystore file (.p12/.pfx)
+  --keystore-password PASSWORD
+                        Keystore password (prompted if omitted)
+  --key PATH            PEM private key file
+  --cert PATH           PEM certificate file
+  -v, --verbose         Enable verbose output
+  -h, --help            Show help message
+```
+``
+
+## Output
+
+```
+============================================================
+  UNIFIED APK PATCHER & SIGNER
+============================================================
+Input:  /path/to/input.apk
+Output: /path/to/output.apk
+
+📱 Step 1: Patching Flutter TLS Verification...
+   └─ Found: 1 libraries
+   └─ Patched: 1 files
+
+🔐 Step 2: Patching Network Security Configuration...
+   └─ Patched: 1 configs
+
+✍️  Step 3: Signing APK...
+   └─ Signature: v2, v3
+
+============================================================
+✅ SUCCESS! Processing complete
+============================================================
+Output APK: /path/to/output.apk
+Size: 45.23 MB
+```
 
 ### Signing Options
 
@@ -178,53 +202,7 @@ openssl pkcs12 -export \
   -name "my-release-key"
 ```
 
-## API Reference
 
-### Command-Line Arguments
-
-```
-positional arguments:
-  input_apk             Input APK file path
-  output_apk            Output patched and signed APK file path
-
-optional arguments:
-  --keystore PATH       PKCS#12 keystore file (.p12/.pfx)
-  --keystore-password PASSWORD
-                        Keystore password (prompted if omitted)
-  --key PATH            PEM private key file
-  --cert PATH           PEM certificate file
-  -v, --verbose         Enable verbose output
-  -h, --help            Show help message
-```
-``
-
-## Output
-
-### Success Output
-
-```
-============================================================
-  UNIFIED APK PATCHER & SIGNER
-============================================================
-Input:  /path/to/input.apk
-Output: /path/to/output.apk
-
-📱 Step 1: Patching Flutter TLS Verification...
-   └─ Found: 1 libraries
-   └─ Patched: 1 files
-
-🔐 Step 2: Patching Network Security Configuration...
-   └─ Patched: 1 configs
-
-✍️  Step 3: Signing APK...
-   └─ Signature: v2, v3
-
-============================================================
-✅ SUCCESS! Processing complete
-============================================================
-Output APK: /path/to/output.apk
-Size: 45.23 MB
-```
 
 ### Issue: "Network security config not found"
 
@@ -251,32 +229,6 @@ openssl pkcs12 -in release.p12 -passin pass:yourpassword -noout
 
 **Solution**: APK is still installable and functional. If size is critical, use app bundle format instead.
 
-## Comparison to Manual Process
-
-### Before (Manual - 3 separate tools)
-
-```bash
-# 1. Flutter TLS patch
-python patch_libflutter_tls.py app.apk
-mv app_patched.apk temp.apk
-
-# 2. Network security patch
-patch-netsec-conf temp.apk
-mv temp_nons.apk temp2.apk
-
-# 3. Sign APK
-sign-apk sign temp2.apk app-final.apk
-
-# 4. Cleanup
-rm temp.apk temp2.apk
-```
-
-### After (Unified - Single command)
-
-```bash
-python apk_patcher.py app.apk app-final.apk
-```
-
 ## Performance
 
 - **Processing Speed**: Depends on APK size and system
@@ -300,9 +252,9 @@ python apk_patcher.py app.apk app-final.apk
 ## License & Attribution
 
 This tool integrates work from:
-- `patch-libflutter-tls`: Based on NVISO security research
-- `patch-netsec-conf`: Original by @adityatelange
-- `sign-apk-py`: Original by @adityatelange
+- `patch-libflutter-tls`: Original by [Aditya Telange's](https://github.com/adityatelange/)
+- `patch-netsec-conf`: Original by [Aditya Telange's](https://github.com/adityatelange/)
+- `sign-apk-py`: Original by [Aditya Telange's](https://github.com/adityatelange/)
 
 1. Test with verbose mode: `python apk_patcher.py input.apk output.apk -v`
 
