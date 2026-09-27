@@ -254,9 +254,9 @@ openssl pkcs12 -in release.p12 -passin pass:yourpassword -noout
 ## License & Attribution
 
 This tool integrates work from:
-- `patch-libflutter-tls`: Original by [Aditya Telange's](https://github.com/adityatelange/patch-libflutter-tls)
-- `patch-netsec-conf`: Original by [Aditya Telange's](https://github.com/adityatelange/patch-netsec-conf)
-- `sign-apk-py`: Original by [Aditya Telange's](https://github.com/adityatelange/sign-apk-py)
+- [`patch-libflutter-tls`](https://github.com/adityatelange/patch-libflutter-tls)
+- [`patch-netsec-conf`](https://github.com/adityatelange/patch-netsec-conf)
+- [`sign-apk-py`](https://github.com/adityatelange/sign-apk-py)
 
 1. Test with verbose mode: `python apk_patcher.py input.apk output.apk -v`
 
